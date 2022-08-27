@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+% Skyler Corrigan                                                   %
+% ECE 351-52                                                        %
+% Lab 00                                                            %
+% 08/25/2022                                                        %
+% GitHub Reports: https://github.com/ElfinPeach/ECE351_Report.git   %
+% GitHub Codes: https://github.com/ElfinPeach/ECE351_Code.git       %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta} 
+
+\usepackage[pdftex]{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\linespread{1.06}
+\setlength{\parskip}{8pt plus2pt minus2pt}
+
+\widowpenalty 10000
+\clubpenalty 10000
+
+\newcommand{\eat}[1]{}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[official]{eurosym}
+\usepackage{enumitem}
+\setlist{nolistsep,noitemsep}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+\usepackage{lipsum}
+
+
+\begin{document}
+
+%===========================================================
+\begin{titlepage}
+\begin{center}
+
+% Top 
+%\includegraphics[width=0.55\textwidth]{cut-logo-en}~\\[2cm]
+
+
+% Title
+\HRule \\[0.4cm]
+{ \LARGE 
+  \textbf{Project Report for ECE 351}\\[0.4cm]
+  \emph{Lab 01 - Introduction to Python 3.x and LaTeX}\\[0.4cm]
+}
+\HRule \\[1.5cm]
+
+
+
+% Author
+{ \large
+  Skyler Corrigan \\[0.1cm]
+}
+
+\vfill
+
+%\textsc{\Large Cyprus University of Technology}\\[0.4cm]\textsc{\large Department of Electrical Engineering,\\Computer Engineering \& Informatics}\\[0.4cm]
+
+
+% Bottom
+{\large \today}
+ 
+\end{center}
+\end{titlepage}
+
+%\begin{abstract}
+%\lipsum[1-2]
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\end{abstract}
+
+\newpage
+
+
+
+%===========================================================
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\newpage
+\setcounter{page}{1}
+
+%===========================================================
+%===========================================================
+\section{Part 1}\label{sec:intro}
+Follow link https://docs.spyder-ide.org/current/index.html and follow interactive tutorials and read over the Spyder keyboard shortcut cheat sheet.\\
+\section{Part 2}\label{sec:intro}
+Unlike some programs, such as C and C++, there is no need to define variables in Python.\\
+\\The print() function will print out items. To print a string, denote that section with either an apostrophe ' or quotation marks '. Separate each part of the print function with a comma ,. \\
+\\To raise numbers to a power, use **.\\
+\\By using the command "import x as y", you can import a library as a variable, that you you don't have to type out the entire library when calling a function from that library.\\
+\\Lists, denoted by a series of values inside a bracket ( i.e [x,y,z] ) and behave similar to arrays, which are called using the function array() from the "numpy" library.\\
+\\The array function can be used to index a list. It is best to use numpy arrays for indexing specific values in multi-dimensional arrays.\\
+\\To define a matrix as an array of zeros or ones, use the numpy.zeros() or numpy.ones() command.\\
+\\
+\\Python can be used to represent complex numbers, use "j" to denote the imaginary numbers. If you're doing a numpy.sqrt() function and you get "nan" as a result, add a "+ 0j" to the end so it can show up as an imaginary number, i.e. numpy.sqrt(3*5 - 5*5 + 0j).\\
+\section{Part 3}\label{sec:intro}
+Tabs are only used for if-else statement. Use 4 spaces per indentations for all other scenerios.\\
+By using three quotation marks in a row """, a comment will start at the end of the triple quotes. To end the comment, use another """. This can be used for multiple lines.\\
+Make sure to wrap lines as they reach 79 characters and use regular and up-to-date comments. Everything after a pound symbol will be commented out for the remainder of the line. Use spaces around operators and after commas. Don't use them inside bracketing constructs. Follow naming conventions - https://pep8.org.\\
+\section{Part 4}\label{sec:intro}
+Read through LaTeX cheat sheets and find a template for reports in class. Make sure to include the heading.\\
+\section{Questions}\label{sec:intro}
+1.) Which course are you most excited for in your degree? Which course have you enjoyed the most so far?\\
+I am most excited for the renewable energy class (ECE 487? I may be wrong on the number). The class I have enjoyed the most so far is probably Energy Systems I with Doctor Hess.\\
+2.) Leave any feedback on the clarity of the expectations, instructions, and deliverable.\\
+I think it would be a good idea to include a list/summary of the deliverable at the beginning of the lab sheet, as well as the deliverable section in each part. That way at the end it'd be easy to check if we have everything instead of searching the document.\\
+\bibliographystyle{ieeetr}
+\bibliography{refs}
+
+
+\end{document} 
+
+
+
