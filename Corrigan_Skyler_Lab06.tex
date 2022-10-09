@@ -1,0 +1,275 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+% Skyler Corrigan                                                   %
+% ECE 351-52                                                        %
+% Lab 04                                                            %
+% 09/22/2022                                                        %
+% GitHub Reports: https://github.com/ElfinPeach/ECE351_Report.git   %
+% GitHub Codes: https://github.com/ElfinPeach/ECE351_Code.git       %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta} 
+
+\usepackage[pdftex]{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\linespread{1.06}
+\setlength{\parskip}{8pt plus2pt minus2pt}
+
+\widowpenalty 10000
+\clubpenalty 10000
+
+\newcommand{\eat}[1]{}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[official]{eurosym}
+\usepackage{enumitem}
+\setlist{nolistsep,noitemsep}
+\usepackage[hidelinks]{hyperref}
+
+
+\begin{document}
+
+%===========================================================
+\begin{titlepage}
+\begin{center}
+
+% Top 
+%\includegraphics[width=0.55\textwidth]{cut-logo-en}~\\[2cm]
+
+
+% Title
+\HRule \\[0.4cm]
+{ \LARGE 
+  \textbf{Project Report for ECE 351}\\[0.4cm]
+  \emph{Lab 06 - Partial Fraction Expansion}\\[0.4cm]
+}
+\HRule \\[1.5cm]
+
+
+
+% Author
+{ \large
+  Skyler Corrigan \\[0.1cm]
+}
+
+\vfill
+
+%\textsc{\Large Cyprus University of Technology}\\[0.4cm]\textsc{\large Department of Electrical Engineering,\\Computer Engineering \& Informatics}\\[0.4cm]
+
+
+% Bottom
+{\large \today}
+
+% Links
+{ \large
+ECE351 Code Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351_Code.git$}{$https://github.com/ElfinPeach/ECE351_Code.git$}
+
+ECE351 Report Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351_Report.git$}{$https://github.com/ElfinPeach/ECE351_Report.git$}
+}
+ 
+\end{center}
+\end{titlepage}
+
+%\begin{abstract}
+%\lipsum[1-2]
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\end{abstract}
+
+\newpage
+
+
+
+%===========================================================
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\newpage
+\setcounter{page}{1}
+
+%===========================================================
+%===========================================================
+\section{Objective}
+This lab is designed to demonstrate partial fraction expansion.\\
+
+\section{Part 1}
+The equation that is analyzed is as follows:
+\begin{center}
+    $y''(t) + 10y'(t) + 24y(t) = x''(t) + 6x'(t) + 12x(t)$
+\end{center}
+The transfer function that was hand calculated is as follows:
+\begin{center}
+    $H(s)=\frac{Y(s)}{X(s)}=\frac{s^2+6s+12}{s^2+10s+24}$
+\end{center}
+Using the Python function to find the roots and poles, they are as follows:\\
+\begin{center}
+    Roots = [0.5, -0.5, 1]\\
+    Poles = [0, -4, -6]\\
+\end{center}
+These roots and poles show that the Python function is equivalent to the hand defined one.\\
+\\
+The hand defined and computer defined functions plot the graphs below.
+\newpage
+\textit{Figure 1}
+\\
+\includegraphics[width=6in]{Plot 1.png}
+\newpage
+\section{Part 2}
+The function evaluated in this section is as follows:
+\begin{center}
+    $y^{(5)} + 18y^{(4)} + 218y'''(t) + 2036y''(t) + 9085y'(t) + 25250y(t) = 25250x(t)$
+\end{center}
+Using the scipy.signal.residue() function, the roots, poles, and K value are as follows:
+\begin{center}
+    Roots = [1+0.j, -0.486+0.728j, -0.486-0.728j, -0.215+0.j,  0.0929-0.047j  0.093+0.0477j]\\
+    Poles = [0.+0.j, -3.+4.j, -3.-4.j, -10.+0.j, -1.+10.j, -1.-10.j]\\
+    K = 0.104 $\angle 0.474$ 
+\end{center}
+These were used to create a plot using the Cosine method, which is:\\
+\begin{center}
+    $y(t)=\vert k \vert * e^{\alpha t} * \cos{(\omega * t + \angle k)}$
+\end{center}
+This was compared to the build in step function, and both were plotted as seen below:\\
+\
+\textit{Figure 2}
+\\
+\includegraphics[width=6in]{Plot 2.png}
+\\
+Since both of these plots are equivalent, it shows that both methods result in the same outcome.
+\newpage
+\section{Appendix}
+The following is the code used for the entirety of the lab.\\
+\textit{Lab Code}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.signal as sig
+
+#------------FUNCTIONS----------------------------------------#
+
+#Make a step function using an array t, stepTime, and stepHeight
+def stepFunc(t, startTime, stepHeight):
+    y = np.zeros(t.shape)
+    for i in range(len(t)):
+        if(t[i] >= startTime):
+            y[i] = stepHeight
+    return y
+
+#----------------END FUNCTIONS-----------------------------#
+
+#---------Part 1-------------------------------------------#
+    #Define step size
+steps = 1e-2
+
+    #t for part 1
+start = 0
+stop = 2
+    #Define a range of t. Start at 0 and go to 20 (+a step)
+t = np.arange(start, stop + steps, steps)
+
+    #Prelab stuff
+h = ((np.exp(-6 * t)) + (-0.5 * np.exp(-4 * t))+ 0.5) * stepFunc(t, 0, 1)
+
+    #Make the H(s) using the sig.step()
+    
+num = [1, 6, 12] #Creates a matrix for the numerator
+den = [1, 10, 24] #Creates a matrix for the denominator
+
+tout , yStep = sig.step((num , den), T = t)
+
+den_residue = [1, 10, 24, 0]
+
+    #Make and print the partial fraction decomp
+roots, poles, _ = sig.residue(num, den_residue)
+
+print("Part 1")
+print("Roots =", roots)
+print("Poles =", poles)
+
+
+    #Make plots for pt1
+plt.figure(figsize=(10,7))
+plt.subplot(2,1,1)
+plt.plot(t,h, 'purple')
+plt.grid()
+plt.ylabel('Hand Solved Output')
+plt.title('Plots of Hans Solved and Computer Solved Outputs')
+
+plt.subplot(2,1,2)
+plt.plot(t,yStep, 'red')
+plt.grid()
+plt.ylabel('sig.step Output')
+
+
+#------------PART 2-------------------------
+
+    #Define step size
+steps = 1e-2
+
+    #t for part 1
+start = 0
+stop = 4.5
+    #Define a range of t2. Start at 0 and go to 20 (+a step)
+t2 = np.arange(start, stop + steps, steps)
+
+    #Make numerator and denomentaor for sig.residue()
+num2 = [25250]
+den2 = [1, 18, 218, 2036, 9085, 25250, 0]
+
+R, P, K = sig.residue(num2, den2)
+
+print("")
+print("Part 2")
+print("Roots =", R)
+print("Poles =", P)
+
+    #cosine vethod
+yt = 0
+
+    #Range iterates through each root
+for i in range(len(R)):
+    angleK = np.angle(R[i])
+    magK = np.abs(R[i])
+    W = np.imag(P[i])
+    a = np.real(P[i])
+        
+    yt += magK * np.exp(a * t2) * np.cos(W * t2 + angleK) * 
+        stepFunc(t2, 0, 1)
+    
+print("K value =", magK)
+print("K angle =", angleK)
+    
+#Make the lib generated step response
+den2_step = [1, 18, 218, 2036, 9085, 25250]
+tStep2, yStep2 = sig.step((num2,den2_step), T = t2)
+
+    #Show Plots
+plt.figure(figsize=(10,7))
+plt.subplot(2,1,1)
+plt.plot(t2, yt,'purple')
+plt.grid()
+plt.xlabel('t')
+plt.ylabel('y(t)')
+plt.title('Cosine Method vs. Lib sig.step Method')
+
+
+plt.subplot(2,1,2)
+plt.plot(tStep2, yStep2, 'red')
+plt.grid()
+plt.xlabel('t')
+plt.ylabel('sig.step y(t)')
+
+#-------------SHOW ALL PLOTS-----------------
+plt.show()
+\end{lstlisting}
+\end{document}
