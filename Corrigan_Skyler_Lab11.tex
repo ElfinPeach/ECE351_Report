@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+% Skyler Corrigan                                                   %
+% ECE 351-52                                                        %
+% Lab 08                                                            %
+% 10/13/2022                                                        %
+% GitHub Reports: https://github.com/ElfinPeach/ECE351_Report.git   %
+% GitHub Codes: https://github.com/ElfinPeach/ECE351_Code.git       %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{listings}
+\usepackage{mathrsfs,amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta} 
+
+\usepackage[pdftex]{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\linespread{1.06}
+\setlength{\parskip}{8pt plus2pt minus2pt}
+
+\widowpenalty 10000
+\clubpenalty 10000
+
+\newcommand{\eat}[1]{}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[official]{eurosym}
+\usepackage{enumitem}
+\setlist{nolistsep,noitemsep}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+%===========================================================
+\begin{titlepage}
+\begin{center}
+
+% Title
+\HRule \\[0.4cm]
+{ \LARGE 
+  \textbf{Project Report for ECE 351}\\[0.4cm]
+  \emph{Lab 11: Z - Transform Operations}\\[0.4cm]
+}
+\HRule \\[1.5cm]
+
+
+% Author
+{ \large
+  Skyler Corrigan \\[0.1cm]
+}
+
+\vfill
+
+% Bottom
+{\large \today}
+
+% Links
+{ \large
+ECE351 Code Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351\_Code.git$}{$https://github.com/ElfinPeach/ECE351\_Code.git$}
+
+ECE351 Report Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351\_Report.git$}{$https://github.com/ElfinPeach/ECE351\_Report.git$}
+}
+ 
+\end{center}
+\end{titlepage}
+
+\newpage
+
+%===========================================================
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\newpage
+\setcounter{page}{1}
+
+%===========================================================
+%===========================================================
+\section{Objective}
+The objective of this lab is to analyze a discrete system using Python’s built-in functions and a function developed by Christopher Felton.
+\section{Equation}
+The equation analyzed in this lab is:
+    $$y[k]=2x[k]-40x[k-1]+10y[k-1]-16y[k-2]$$
+\subsection{Hand Derivation of H(z)}
+Below is the hand calculated z-transform of the function:
+$$Y(z)=2X(z)-40(z^{-1}X(z)-x[-1]+10(z^{-1}Y(z)-y[-1])-16(Y(z)z^{-2}-z^{-1}y[-1]-y[-2])$$
+Knowing that the system is initially at rest, the function can be further simplified to:
+$$Y(z)=2X(z)-40z^{-1}X(z)+10z^{-1}Y(z)-16z^{-2}Y(z)$$
+$$(40z^{-1}-2)X(z)=(-16z^{-2}+10z^{-1}-1)Y(z)$$
+$$\frac{Y(z)}{X(z)}=H(z)=\frac{40z^{-1}-2}{-16z^{-2}+10z^{-1}-1}$$
+$$H(z)=\frac{2z^2-40z}{(z-8)(z-2)}$$
+\subsection{h[k] Hand Derivation}
+Below is the steps used to go beck to the h[k] domain.
+$$H(z)=\frac{2z^2-40z}{(z-8)(z-2)}$$
+$$\frac{H(z)}{z}=\frac{2z-40}{(z-8)(z-2)}$$
+Using partial fraction decomposition it can be found that:
+$$\frac{H(z)}{z}=\frac{-4}{z-8}+\frac{6}{z-2}$$
+Multiplying by z the result is:
+$$H(z)=6\frac{z}{z-8}-4\frac{z}{z-2}$$
+The inverse Z transform of H(z) is:
+$$h[k]=(6(2)^k-4(8)^k)u[k]$$
+\subsection{Computer Results}
+Below are the results fro the almighty computer code that verify partial fraction expansion.
+\begin{lstlisting}[language=Python]
+Res: [ 6. -4.]
+Poles: [2. 8.]
+Coefficients: []
+\end{lstlisting}
+\subsection{Figures}
+Below are the figures related to the equation.\\
+\\
+\textit{Figure 1: ZPlane Plot}
+\\
+\includegraphics[width=6in]{Not Bode.png}
+\newpage
+\textit{Figure 2: Bode Plot}
+\\
+\includegraphics[width=6in]{Bode.png}
+\newpage
+\section{Question}
+Looking at the plot generated in Task 4, is H(z) stable? Explain why or why not.\\
+\\
+Since the poles (the X's on the ZPlane plot) are not within the unit circle (the dashed ellipse on the left side of the ZPlane plot), this system is unstable.
+\end{document}

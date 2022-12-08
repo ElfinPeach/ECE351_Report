@@ -1,0 +1,147 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+% Skyler Corrigan                                                   %
+% ECE 351-52                                                        %
+% Lab 08                                                            %
+% 10/13/2022                                                        %
+% GitHub Reports: https://github.com/ElfinPeach/ECE351_Report.git   %
+% GitHub Codes: https://github.com/ElfinPeach/ECE351_Code.git       %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{listings}
+\usepackage{mathrsfs,amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta} 
+
+\usepackage[pdftex]{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\linespread{1.06}
+\setlength{\parskip}{8pt plus2pt minus2pt}
+
+\widowpenalty 10000
+\clubpenalty 10000
+
+\newcommand{\eat}[1]{}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[official]{eurosym}
+\usepackage{enumitem}
+\setlist{nolistsep,noitemsep}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+%===========================================================
+\begin{titlepage}
+\begin{center}
+
+% Top 
+%\includegraphics[width=0.55\textwidth]{cut-logo-en}~\\[2cm]
+
+
+% Title
+\HRule \\[0.4cm]
+{ \LARGE 
+  \textbf{Project Report for ECE 351}\\[0.4cm]
+  \emph{Lab 10 - Fast Fourier Transform}\\[0.4cm]
+}
+\HRule \\[1.5cm]
+
+
+
+% Author
+{ \large
+  Skyler Corrigan \\[0.1cm]
+}
+
+\vfill
+
+%\textsc{\Large Cyprus University of Technology}\\[0.4cm]\textsc{\large Department of Electrical Engineering,\\Computer Engineering \& Informatics}\\[0.4cm]
+
+
+% Bottom
+{\large \today}
+
+% Links
+{ \large
+ECE351 Code Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351\_Code.git$}{$https://github.com/ElfinPeach/ECE351\_Code.git$}
+
+ECE351 Report Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351\_Report.git$}{$https://github.com/ElfinPeach/ECE351\_Report.git$}
+}
+ 
+\end{center}
+\end{titlepage}
+
+%\begin{abstract}
+%\lipsum[1-2]
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\end{abstract}
+
+\newpage
+
+%===========================================================
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\newpage
+\setcounter{page}{1}
+
+%===========================================================
+%===========================================================
+\section{Objective}
+The objective is to become familiar with frequency response tools and Bode plots using Python. To do so, we are analyzing the following filter:
+\begin{center}
+    $H(s)=\frac{\frac{s}{RC}}{s^s+\frac{s}{RC}+\frac{1}{LC}}$
+\end{center}
+For the second part, the following signal was passed through the filter:
+\begin{center}
+    $x(t)=cos(2\pi \cdot 100t)+cos(2\pi \cdot 3024t)+sin(2\pi \cdot 50000t)$
+\end{center}
+\section{Deliverables}
+\subsection{Figures}
+The following graphs are results from the equations.\\
+\\
+\textit{Figure 1: Part 1 Task 1}
+\\
+\includegraphics[width=6in]{Task 1 Part 1.png}
+\newpage
+\textit{Figure 2: Part 1 Task 2}
+\\
+\includegraphics[width=6in]{Task 1 Part 2.png}
+\\
+\textit{Figure 3: Part 1 Task 3}
+\\
+\includegraphics[width=6in]{Task 1 Part 3.png}
+\newpage
+\textit{Figure 4: Part 2}
+\\
+\includegraphics[width=6in]{Task 2.png}
+\subsection{Discussion}
+My hand-solved plot has slight variation in the magnitude compared to the computer doing the same plot. Otherwise, the three different plots for Part 1 appear to be identical.\\
+\\
+In part 2, the filtered signal is a lot nicer and easier to read compared to the unfiltered signal.
+\section{Questions}
+\subsection{Question 1}
+Explain how the filter and filtered output in Part 2 makes sense given the Bode plots from Part 1. Discuss how the filter modifies specific frequency bands, in Hz.\\
+\\
+This filter is a band-pass filter, so the Bode plot makes sense. Before/after the frequency that results in a zero of the filter, the Bode plot shows that the magnitude reduces dramatically. This shows that the filter's response in the Bode plot makes sense and is consistent with what is expected.\\
+\\
+The first few oscillations of the filtered signal in Part 2 show a dampened signal. This is the cosine parts of the input signal being filtered out, leaving the sine signals only.
+\subsection{Question 2}
+Discuss the purpose and workings of scipy.signal.bilinear() and scipy.signal.lfilter().\\
+\\
+scipy.signal.bilinear() is used to convert a transfer function in the Laplace domain to a z-domain function.\\
+\\
+scipy.signal.lifiler() is used to to filter a signal using a z-domain transfer function, allowing the user to to take a function in the Laplace domain and use it as a filter in Python.
+\subsection{Question 3}
+What happens if you use a different sampling frequency in scipy.signal.bilinear() than you used for the time-domain signal?\\
+If a different sampling frequency was used, it could modify the resolution of the filtered function. For example, if the sampling frequency was less than the the frequency of the function, is could result in inaccurate filtered signals. Increasing the sampling frequency will increase the resolution of the filtered signal.
+\end{document}

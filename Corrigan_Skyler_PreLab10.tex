@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+% Skyler Corrigan                                                   %
+% ECE 351-52                                                        %
+% PreLab 08                                                         %
+% 10/13/2022                                                        %
+% GitHub Reports: https://github.com/ElfinPeach/ECE351_Report.git   %
+% GitHub Codes: https://github.com/ElfinPeach/ECE351_Code.git       %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta} 
+
+\usepackage[pdftex]{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\linespread{1.06}
+\setlength{\parskip}{8pt plus2pt minus2pt}
+
+\widowpenalty 10000
+\clubpenalty 10000
+
+\newcommand{\eat}[1]{}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[official]{eurosym}
+\usepackage{enumitem}
+\setlist{nolistsep,noitemsep}
+\usepackage[hidelinks]{hyperref}
+
+
+\begin{document}
+
+%===========================================================
+\begin{titlepage}
+\begin{center}
+
+
+% Title
+\HRule \\[0.4cm]
+{ \LARGE 
+  \textbf{Project Report for ECE 351}\\[0.4cm]
+  \emph{PreLab 10 - Frequency Response}\\[0.4cm]
+}
+\HRule \\[1.5cm]
+
+% Author
+{ \large
+  Skyler Corrigan \\[0.1cm]
+}
+
+\vfill
+
+% Bottom
+{\large \today}
+
+% Links
+{ \large
+ECE351 Code Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351_Code.git$}{$https://github.com/ElfinPeach/ECE351_Code.git$}
+
+ECE351 Report Repository: 
+\hyperlink{$https://github.com/ElfinPeach/ECE351_Report.git$}{$https://github.com/ElfinPeach/ECE351_Report.git$}
+}
+ 
+\end{center}
+\end{titlepage}
+
+
+\newpage
+
+
+%===========================================================
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\newpage
+\setcounter{page}{1}
+
+%===========================================================
+%===========================================================
+\section{Objective}
+Find $|H(j\omega)|$ and $\angle H(j\omega)$ of the following function by hand:
+\begin{center}
+   $ H(s)=\frac{\frac{s}{RC}}{s^2+\frac{s}{RC}+\frac{1}{LC}}$
+\end{center}
+\subsection{Find $H(j\omega)$}
+\begin{center}
+    $H(jw)=\frac{\frac{j\omega}{RC}}{(j\omega)^2+\frac{j\omega}{RC}+\frac{1}{LC}}$ \\
+    $H(jw)=\frac{\frac{j\omega}{RC}}{\frac{j\omega}{RC}+\frac{1}{LC}-\omega^2}$ \\
+\end{center}
+\subsection{Hand Calculations for $|H(j\omega)|$}
+\begin{center}
+    $|H(j\omega)|=\frac{\sqrt{(\frac{\omega}{RC}})^2}{\sqrt{(\frac{\omega}{RC})^2+(\frac{1}{LC}-\omega^2)^2}}$ \\
+    $|H(j\omega)|=\frac{\frac{\omega}{RC}}{\sqrt{(\frac{\omega}{RC})^2+(\frac{1}{LC}-\omega^2)^2}}$
+\end{center}
+\subsection{Hand Calculations for $\angle H(j\omega)$}
+\begin{center}
+    $\angle H(j\omega)=\angle(numerator)-\angle(denominator)$\\
+    $\angle H(j\omega)=tan^{-1}(\frac{\omega}{RC})-tan^{-1}(\frac{\frac{\omega}{RC}}{\frac{1}{LC}-\omega^2})$\\
+\end{center}
+\end{document}
